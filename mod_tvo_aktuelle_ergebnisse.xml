@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.5" client="site" method="upgrade">
+    <name>TVO Aktuelle Ergebnisse</name>
+    <author>Stefan Herzog</author>
+    <version>0.0.1</version>
+    <description>Liste der nächsten Spiele</description>
+    <files>
+      <filename>mod_tvo_aktuelle_ergebnisse.xml</filename>
+      <filename module="mod_tvo_aktuelle_ergebnisse">mod_tvo_aktuelle_ergebnisse.php</filename>
+      <filename>class.helper.php</filename>
+      <filename>cron.php</filename>
+      <filename>data.json</filename>
+      <filename>helper.php</filename>
+      <filename>ids.json</filename>
+      <filename>xml_gen.php</filename>
+      <filename>index.html</filename>
+      <filename>tmpl/default.php</filename>
+      <filename>tmpl/print.php</filename>
+      <filename>tmpl/index.html</filename>
+      <folder>css</folder>
+      <folder>language</folder>
+    </files>
+    <config>
+		<fields name="params"
+        addfieldpath="/administrator/components/com_tvo/models/fields">
+		    <fieldset name="basic">
+
+        <field
+           name="numberOfFutureDays"
+           type="number"
+           default="7"
+           label="Max. Number of Days to display in future"
+           min="0"
+           />
+        <field
+           name="numberOfPastDays"
+           type="number"
+           default="7"
+           label="Max. Number of Days to display in past"
+           min="0"
+           />
+
+				<field name="seasonStatusSelector" type="radio" default="1" label="Aktueller Stand der Saison?" description="" class="btn-group">
+					<option value="1">Saison läuft noch</option>
+					<option value="0">Saison ist vorbei</option>
+				</field>
+
+        <field
+          name="teams"
+          type="listOfAllTeams"
+          label="Anzuzeigende Teams"
+          description="Choose teams to be displayed"
+          mode="nested"
+          class="inputbox small"
+          multiple="true"
+          required="true"
+          >
+				</field>
+
+
+		  </fieldset>
+			<fieldset name="advanced">
+            <field
+                name="layout"
+                type="modulelayout"
+                label="JFIELD_ALT_LAYOUT_LABEL"
+                description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+			/>
+            <field
+                name="moduleclass_sfx"
+                type="text"
+                label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+			/>
+
+				<field name="columns" type="checkboxes" label="Was soll eingeblendet werden?" description="Choose columns to be displayed in the table" required="true">
+				    <option value="datetime">Zeitpunkt</option>
+				    <option value="league">Spielklasse</option>
+				    <option value="place">Austragungsort</option>
+				    <option value="hometeam">Heim-Mannschaft</option>
+				    <option value="guestteam">Gast-Mannschaft</option>
+				    <option value="scores">Spielstand</option>
+				</field>
+			</fieldset>
+
+		</fields>
+    </config>
+    <updateservers>
+  	   <server type="extension" priority="1" name="mod_tvo_aktuelle_ergebnisse_updateserver">https://raw.githubusercontent.com/alve89/j_mod_tvo_aktuelle_ergebnisse/master/updates.xml</server>
+  	</updateservers>
+</extension>

@@ -1,0 +1,74 @@
+div.driver {
+	width: 425px;
+	height: 140px;
+	clear: both;
+	border: 1px solid lightgrey;
+	padding: 20px;
+	margin: 10px;
+}
+
+div.leftHalf {
+	float: left;
+}
+
+div.driverPlace {
+	font-size: 30px;
+	/* margin-top: 30px; */
+	vertical-align: middle;
+	height: 30px;
+	margin-right: 20px;
+	margin-bottom: 15px;
+	width: 35px;
+	text-align: center;
+}
+
+div.driverYear {
+	font-size: 12px;
+	height: 20px;
+	width: 35px;
+	text-align: center;
+}
+div.driverPicture {
+	width: 120px;
+	height: 140px;
+	border: 1px solid lightgrey;
+	float: left;
+}
+
+img.driverYear {
+	width: 120px;
+	height: 140px;
+}
+
+div.driverInformation {
+	margin-left: 10px;
+	float: right;
+	width: 225px;
+	height: 140px;
+}
+
+div.driverTime, div.driverName, div.driverTeam {
+	text-align: center;
+	height: auto;
+}
+
+div.driverTime {
+	font-size: 40px;
+	font-weight: bolder;
+	height: 60px;
+	padding: 0px;
+	margin-top: -10px;
+}
+
+div.driverName {
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 27px;
+	min-height: 60px;
+}
+
+div.driverTeam {
+	font-size: 20px;
+	min-height: 40px;
+	line-height: 20px;
+}
