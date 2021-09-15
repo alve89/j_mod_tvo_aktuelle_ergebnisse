@@ -14,7 +14,6 @@
       <filename>tmpl/print.php</filename>
       <filename>tmpl/index.html</filename>
       <folder>css</folder>
-      <folder>language</folder>
     </files>
     <config>
 		<fields name="params"
