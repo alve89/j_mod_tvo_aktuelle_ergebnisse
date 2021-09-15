@@ -4,15 +4,11 @@
     <author>Stefan Herzog</author>
     <version>0.0.1</version>
     <description>Liste der nächsten Spiele</description>
+    <scriptfile>script.php</scriptfile>
     <files>
       <filename>mod_tvo_aktuelle_ergebnisse.xml</filename>
       <filename module="mod_tvo_aktuelle_ergebnisse">mod_tvo_aktuelle_ergebnisse.php</filename>
-      <filename>class.helper.php</filename>
-      <filename>cron.php</filename>
-      <filename>data.json</filename>
       <filename>helper.php</filename>
-      <filename>ids.json</filename>
-      <filename>xml_gen.php</filename>
       <filename>index.html</filename>
       <filename>tmpl/default.php</filename>
       <filename>tmpl/print.php</filename>

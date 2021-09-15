@@ -68,9 +68,15 @@ foreach($alleTeams as $team) {
   ?><jdoc:include type="message" /><?php
 
   if(empty($allGames)) {
-		echo 'In den nächsten ' . $numberOfFutureDays . ' Tagen stehen keine Spiele an.';
+    if( !$tablesNotFound ) {
+		    echo 'In den nächsten ' . $params->get('numberOfFutureDays') . ' Tagen stehen keine Spiele an.';
+    }
+    else {
+      echo 'Die Daten konnten nicht geladen werden.';
+    }
   }
-  else { ?>
+  else {
+    ?>
     <span class="StandLetzteAenderung">Letzte Aktualisierung: <?=date("d.m.Y, H:i", $lastUpdated) . " Uhr";?></span>
 
 
