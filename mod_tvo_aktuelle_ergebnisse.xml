@@ -76,6 +76,7 @@
 				    <option value="hometeam">Heim-Mannschaft</option>
 				    <option value="guestteam">Gast-Mannschaft</option>
 				    <option value="scores">Spielstand</option>
+            <option value="lastUpdated">Letzte Aktualisierung</option>
 				</field>
 			</fieldset>
 

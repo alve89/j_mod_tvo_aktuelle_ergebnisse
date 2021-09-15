@@ -76,8 +76,12 @@ foreach($alleTeams as $team) {
     }
   }
   else {
+    if( $contentToDisplay['lastUpdated'] ) {
     ?>
     <span class="StandLetzteAenderung">Letzte Aktualisierung: <?=date("d.m.Y, H:i", $lastUpdated) . " Uhr";?></span>
+    <?php
+    }
+    ?>
 
 
     <table class="table_ergebnisse">
