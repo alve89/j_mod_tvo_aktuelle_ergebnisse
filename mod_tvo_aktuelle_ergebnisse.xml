@@ -2,7 +2,7 @@
 <extension type="module" version="3.5" client="site" method="upgrade">
     <name>TVO Aktuelle Ergebnisse</name>
     <author>Stefan Herzog</author>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <description>Liste der nächsten Spiele</description>
     <scriptfile>script.php</scriptfile>
     <files>
@@ -77,7 +77,8 @@
 			/>
 
 				<field name="columns" type="checkboxes" label="Was soll eingeblendet werden?" description="Choose columns to be displayed in the table" required="true">
-				    <option value="datetime">Zeitpunkt</option>
+            <option value="leagueAsHeader">Liga (als Überschrift)</option>
+            <option value="datetime">Zeitpunkt</option>
 				    <option value="league">Spielklasse</option>
 				    <option value="place">Austragungsort</option>
 				    <option value="hometeam">Heim-Mannschaft</option>

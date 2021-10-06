@@ -9,6 +9,14 @@ require_once(Joomla\CMS\Uri\Uri::root() . 'modules' . DS . $module->module . DS 
 
   echo $params->get('header');
 
+  if( $contentToDisplay['leagueAsHeader'] ) {
+  ?>
+  <span class="league">
+  	<h4><?=$data[0]->teamLeague;?></h4>
+  </span>
+  <?php
+  }
+
   if(empty($allGames)) {
     if( !$tablesNotFound ) {
 		    echo 'In den nächsten ' . $params->get('numberOfFutureDays') . ' Tagen stehen keine Spiele an.';

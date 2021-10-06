@@ -47,7 +47,7 @@ if( !$tablesNotFound ) {
   // Lade Spieldaten von gewählten Teams zur Prüfung, ob Teams gefunden werden
   $db    = JFactory::getDBO();
   $query = $db->getQuery(true);
-  $query->select(array('a.teamName', 'a.teamGamesId', 'b.teamGamesId', 'b.gamesData', 'b.lastUpdated', 'a.title'));
+  $query->select(array('a.teamName', 'a.teamGamesId', 'b.teamGamesId', 'b.gamesData', 'b.lastUpdated', 'a.title', 'a.teamLeague'));
   $query->from($db->quoteName('#__tvo_teams', 'a'));
   $query->join('RIGHT', $db->quoteName('#__tvo_games', 'b') . ' ON ' . $db->quoteName('a.teamGamesId') . ' = ' . $db->quoteName('b.teamGamesId'));
   $whereConditions = array();
