@@ -4,14 +4,14 @@
         <description></description>
         <element>mod_tvo_aktuelle_ergebnisse</element>
         <type>module</type>
-        <version>0.0.2</version>
+        <version>0.0.3</version>
         <client>site</client>
         <infourl title="mod_tvo_aktuelle_ergebnisse Update Server" />
         <downloads>
             <downloadurl
                 type="full"
                 format="zip">
-                https://github.com/alve89/j_mod_tvo_aktuelle_ergebnisse/archive/v0.0.2.zip
+                https://github.com/alve89/j_mod_tvo_aktuelle_ergebnisse/archive/v0.0.3.zip
             </downloadurl>
         </downloads>
         <tags>

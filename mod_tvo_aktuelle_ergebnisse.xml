@@ -2,7 +2,7 @@
 <extension type="module" version="3.5" client="site" method="upgrade">
     <name>TVO Aktuelle Ergebnisse</name>
     <author>Stefan Herzog</author>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <description>Liste der nächsten Spiele</description>
     <scriptfile>script.php</scriptfile>
     <files>
@@ -20,6 +20,14 @@
         addfieldpath="/administrator/components/com_tvo/models/fields">
 		    <fieldset name="basic">
 
+          <field
+            name="header"
+            type="textarea"
+            label="Header for this module"
+            description="HTML tags are allowed"
+            default=""
+            filter="raw"
+            />
         <field
            name="numberOfFutureDays"
            type="number"
@@ -76,7 +84,16 @@
 				    <option value="guestteam">Gast-Mannschaft</option>
 				    <option value="scores">Spielstand</option>
             <option value="lastUpdated">Letzte Aktualisierung</option>
+            <option value="teamname">Mannschaftsname</option>
+            <option value="opponent">Spielgegner</option>
 				</field>
+        <field
+          name="disclaimer"
+          type="textarea"
+          label="Haftungsausschluss"
+          description="Benutzerdefinierter Haftungsausschluss für die Richtigkeit der angezeigten Ergebnisse"
+          default="Die angezeigten Ergebnisse werden direkt von der Schnittstelle des Badischen Handballverbandes geladen. Aus diesem Grund übernehmen wir für die Richtigkeit der Ergebnisse keine Haftung."
+          />
 			</fieldset>
 
 		</fields>

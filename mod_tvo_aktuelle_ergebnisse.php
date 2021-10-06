@@ -41,24 +41,28 @@ if( !$tablesNotFound ) {
     }
   }
 
+//ModTvoAktuelleErgebnisseHelper::varDump($teams);
+
+
   // Lade Spieldaten von gewählten Teams zur Prüfung, ob Teams gefunden werden
   $db    = JFactory::getDBO();
   $query = $db->getQuery(true);
-  $query->select(array('a.teamGamesId', 'b.teamGamesId', 'b.gamesData'));
+  $query->select(array('a.teamName', 'a.teamGamesId', 'b.teamGamesId', 'b.gamesData', 'b.lastUpdated', 'a.title'));
   $query->from($db->quoteName('#__tvo_teams', 'a'));
   $query->join('RIGHT', $db->quoteName('#__tvo_games', 'b') . ' ON ' . $db->quoteName('a.teamGamesId') . ' = ' . $db->quoteName('b.teamGamesId'));
+  $whereConditions = array();
+  foreach($teams as $team) {
+    $str = $db->quoteName('a.teamGamesId') . '=' . $db->quote($team->teamGamesId);
+    $whereConditions[] = $str;
+  }
+  $query->where( $whereConditions, 'OR' );
   $db->setQuery((string) $query);
   $db->query();
 
   // Prüfe, ob Spiele im Gesamt-Array vorhanden sind
   if( $db->getNumRows() > 0 ) {
     // Lade Spieldaten von gewählten Teams
-    $db    = JFactory::getDBO();
-    $query = $db->getQuery(true);
-    $query->select(array('a.teamGamesId', 'b.teamGamesId', 'b.gamesData', 'b.lastUpdated'));
-    $query->from($db->quoteName('#__tvo_teams', 'a'));
-    $query->join('RIGHT', $db->quoteName('#__tvo_games', 'b') . ' ON ' . $db->quoteName('a.teamGamesId') . ' = ' . $db->quoteName('b.teamGamesId'));
-    $db->setQuery((string) $query);
+    // Load objects with the previous query
     $data = $db->loadObjectList();
   }
   else {
@@ -71,15 +75,24 @@ if( !$tablesNotFound ) {
 
   // Fasse alle Spieldaten aller (gewählten) Teams in einerm Array zusammen
   $allGames = array();
+  $t = 0;
   foreach($data as $team) {
+    //ModTvoAktuelleErgebnisseHelper::varDump($team);
     foreach(json_decode($team->gamesData) as $gameData) {
-      //ModTvoAktuelleErgebnisseHelper::varDump($gameData->dataList);
+      foreach($gameData->dataList as $dataListData) {
+        if(trim($dataListData->gClassSname) == trim($team->title)) {
+          $dataListData->teamName = $team->teamName;
+        }
+      }
+
       $allGames = array_merge($allGames, $gameData->dataList);
     }
 
     if( strtotime($team->lastUpdated) != FALSE && strtotime($team->lastUpdated) > $lastUpdated ) {
       $lastUpdated = strtotime($team->lastUpdated);
     }
+
+    $t++;
   }
 
   // Generiere UNIX-Timestamp für jedes Spiel, um eine Sortierung zu ermöglichen
@@ -99,10 +112,26 @@ if( !$tablesNotFound ) {
       unset($allGames[$i]);
     }
     $i++;
+
+    if(strpos($game->gGuestTeam, 'flockenb') !== false || strpos($game->gGuestTeam, 'HSG Wein/Oberf') !== false) {
+      $game->opponent = $game->gHomeTeam;
+      $game->opponentType = '(H)';
+    }
+    elseif(strpos($game->gHomeTeam, 'flockenb') !== false || strpos($game->gHomeTeam, 'HSG Wein/Oberf') !== false) {
+      $game->opponent = $game->gGuestTeam;
+      $game->opponentType = '(G)';
+    }
+    else {
+      $game->opponent = 'Fehler bei Datenabfrage';
+    }
+
   }
+
+
   // Re-indiziere das Array
   array_values($allGames);
 }
+
 
 // ####################################### Prüfe alle Voraussetzungen und starte Rendering #######################################
 

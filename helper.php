@@ -1,135 +1,72 @@
 <?php
 
-class ModTvoAktuelleErgebnisseHelper
-{
+class ModTvoAktuelleErgebnisseHelper {
 
+	// Retrieve the current API URL
+	public static function getCurrentUrl()
+  {
+		return "https://api.h4a.mobi/spo/spo-proxy_public.php";
+  }
 
-	public static function getPathToDataFile()
-	{
-		return __DIR__ . '/data.json';
-	}
-
-	public static function getSeasonDataFromFile($file)
-	{
-		return json_decode(file_get_contents($file));
-	}
-
-
-	public static function getSeasonDataForTeam($id)
-	{
-		$teams = self::getSeasonDataFromFile(self::getPathToDataFile());
-		foreach($teams as $team)
-		{
-			if($team->lvIDPathStr == $id)
-			{
-				return $team;
-			}
-		}
-	}
-
-
-
-
-    /**
-     * Retrieves the hello message
-     *
-     * @param   array  $params An object containing the module parameters
-     *
-     * @access public
-     */
-    public static function getCurrentIDs($id)
-    {
+	// Retrieve all team data for the given ID
+	public static function getCurrentGamesData($id) {
 		// create curl ressource
-        $ch = curl_init();
+		$ch = curl_init();
 
-        // set url
-        curl_setopt($ch, CURLOPT_URL, self::getCurrentUrl()."?cmd=data&lvTypeNext=club&lvIDNext=" . $id);
+		// set url
+		// club (!) id = 986
+		curl_setopt($ch, CURLOPT_URL, self::getCurrentUrl()."?cmd=data&lvTypeNext=team&lvIDNext=" . $id);
 
-        //return the transfer as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        // $output contains the output string
-        $output = curl_exec($ch);
-
-        // close curl resource to free up system resources
-        curl_close($ch);
-		// Return the result
-		return $output;
-    }
-
-    public static function getCurrentGames($id)
-    {
-	    // TVO: 986
-	    // HSG: 1005
-
-		// create curl ressource
-        $ch = curl_init();
-
-        // set url
-        // club (!) id = 986
-        curl_setopt($ch, CURLOPT_URL, self::getCurrentUrl()."?cmd=data&lvTypeNext=club&lvIDNext=" . $id);
-
-        //return the transfer as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        // $output contains the output string
-        $output = curl_exec($ch);
-
-        // close curl resource to free up system resources
-        curl_close($ch);
-		// Return the result
-		return json_decode($output)[0];
-    }
-
-
-    public static function getLatestScorings($id)
-    {
-		// create curl ressource
-        $ch = curl_init();
-
-        // set url
-        // club (!) id = 986
-        curl_setopt($ch, CURLOPT_URL, self::getCurrentUrl()."?cmd=data&lvTypeNext=team&lvIDNext=" . $id);
-
-        //return the transfer as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
+		//return the transfer as a string
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch,  CURLOPT_ENCODING, 'gzip');
 
-        // $output contains the output string
-        $output = curl_exec($ch);
+		// $output contains the output string
+		$output = curl_exec($ch);
 
-        // close curl resource to free up system resources
-        curl_close($ch);
-		// Return the result
-		return json_decode($output)[0];
-    }
-
-	public static function getCurrentUrl()
-    {
-		// create curl ressource
-        $ch = curl_init();
-
-        // set url
-        curl_setopt($ch, CURLOPT_URL, "http://www.handball4all.de/api/url/spo_vereine-01.php");
-
-        //return the transfer as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        // $output contains the output string
-        $output = curl_exec($ch);
-
-        // close curl resource to free up system resources
-        curl_close($ch);
+		// close curl resource to free up system resources
+		curl_close($ch);
 		// Return the result
 		return $output;
-    }
+	}
+
+	// Retrieve all table data for the given ID
+	public static function getCurrentTableData($id) {
+		// create curl ressource
+		$ch = curl_init();
+
+		// set url
+		curl_setopt($ch, CURLOPT_URL, self::getCurrentUrl()."?cmd=data&lvTypeNext=class&subType=table&lvIDNext=" . $id);
+
+		//return the transfer as a string
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch,  CURLOPT_ENCODING, 'gzip');
+
+		// $output contains the output string
+		$output = curl_exec($ch);
+
+		// close curl resource to free up system resources
+		curl_close($ch);
+		// Return the result
+		return $output;
+	}
 
 
+	// User defined comparison and sort function
 	public static function cmp($a, $b)
 	{
 		return strcmp($a->gDateTS, $b->gDateTS);
 	}
+
+
+	public static function varDump($var)
+  {
+	echo '<pre>';
+	var_dump($var);
+	echo '</pre>';
+	return;
+  }
+
 
 	public static function getTimestamp($game)
 	{
@@ -144,7 +81,7 @@ class ModTvoAktuelleErgebnisseHelper
 	}
 
 
-    /*
+	/*
 	 *
 	 * Create current score
 	 *
@@ -170,11 +107,5 @@ class ModTvoAktuelleErgebnisseHelper
 		return $return;
 	}
 
-    public static function varDump($var)
-    {
-		echo '<pre>';
-		var_dump($var);
-		echo '</pre>';
-		return;
-    }
+
 }
