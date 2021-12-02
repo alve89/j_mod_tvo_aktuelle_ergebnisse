@@ -2,14 +2,14 @@
 // No direct access
 defined('_JEXEC') or die;
 
-require_once(Joomla\CMS\Uri\Uri::root() . 'modules' . DS . $module->module . DS . 'helper.php');
+require_once(JPATH_SITE . '/modules' . DS . $module->module . DS . 'helper.php');
 
 
   ?><jdoc:include type="message" /><?php
 
   echo $params->get('header');
 
-  if( $contentToDisplay['leagueAsHeader'] ) {
+  if( isset($contentToDisplay['leagueAsHeader']) && $contentToDisplay['leagueAsHeader'] ) {
   ?>
   <span class="league">
   	<h4><?=$data[0]->teamLeague;?></h4>
@@ -37,14 +37,14 @@ require_once(Joomla\CMS\Uri\Uri::root() . 'modules' . DS . $module->module . DS 
     <table class="table_ergebnisse" style="font-size: 12px">
       <tr>
         <?php
-        if( $contentToDisplay['datetime'] )   { ?><th>Datum</th><?php }
-        if( $contentToDisplay['league']  )    { ?><th>Klasse</th><?php }
-        if( $contentToDisplay['place'] )      { ?><th>Ort</th><?php }
-        if( $contentToDisplay['teamname'] )  { ?><th>Mannschaft</th><?php }
-        if( $contentToDisplay['hometeam'] )   { ?><th>Heim</th><?php }
-        if( $contentToDisplay['opponent'] )  { ?><th>Gegen</th><?php }
-        if( $contentToDisplay['scores'] )     { ?><th>Spielstand</th><?php }
-        if( $contentToDisplay['guestteam'] )  { ?><th>Gast</th><?php }
+        if( isset($contentToDisplay['datetime']) && $contentToDisplay['datetime'] )   { ?><th>Datum</th><?php }
+        if( isset($contentToDisplay['league']) && $contentToDisplay['league']  )    { ?><th>Klasse</th><?php }
+        if( isset($contentToDisplay['place']) && $contentToDisplay['place'] )      { ?><th>Ort</th><?php }
+        if( isset($contentToDisplay['teamname']) && $contentToDisplay['teamname'] )  { ?><th>Mannschaft</th><?php }
+        if( isset($contentToDisplay['hometeam']) && $contentToDisplay['hometeam'] )   { ?><th>Heim</th><?php }
+        if( isset($contentToDisplay['opponent']) && $contentToDisplay['opponent'] )  { ?><th>Gegen</th><?php }
+        if( isset($contentToDisplay['scores']) && $contentToDisplay['scores'] )     { ?><th>Spielstand</th><?php }
+        if( isset($contentToDisplay['guestteam']) && $contentToDisplay['guestteam'] )  { ?><th>Gast</th><?php }
         ?>
       </tr>
 
@@ -52,36 +52,36 @@ require_once(Joomla\CMS\Uri\Uri::root() . 'modules' . DS . $module->module . DS 
 
     foreach($allGames as $game) {
       ?><tr><?php
-          if($contentToDisplay['datetime']) { ?>
+          if(isset($contentToDisplay['datetime']) && $contentToDisplay['datetime']) { ?>
             <td><?=date("d.m.Y, H:i", $game->gDateTS);?></td>
           <?php }
 
-          if($contentToDisplay['league']) { ?>
+          if(isset($contentToDisplay['league']) && $contentToDisplay['league']) { ?>
             <td><?=$game->gClassSname;?></td>
           <?php }
 
-          if($contentToDisplay['place']) { ?>
+          if(isset($contentToDisplay['place']) && $contentToDisplay['place']) { ?>
             <td><?=$game->gGymnasiumName;?><br />
             <span style="font-size: 12px; text-align: center; align-content: center;"><?=$game->gGymnasiumStreet;?>, <?=$game->gGymnasiumPostal;?> <?=$game->gGymnasiumTown;?></span></td>
           <?php }
 
-          if($contentToDisplay['teamname']) { ?>
+          if(isset($contentToDisplay['teamname']) && $contentToDisplay['teamname']) { ?>
             <td><?=$game->teamName;?></td>
           <?php }
 
-          if($contentToDisplay['hometeam']) { ?>
+          if(isset($contentToDisplay['hometeam']) && $contentToDisplay['hometeam']) { ?>
             <td><?=$game->gHomeTeam;?></td>
           <?php }
 
-          if($contentToDisplay['opponent']) { ?>
+          if(isset($contentToDisplay['opponent']) && $contentToDisplay['opponent']) { ?>
             <td><?=$game->opponent . ' ' . $game->opponentType;?></td>
           <?php }
 
-          if($contentToDisplay['scores']) { ?>
+          if(isset($contentToDisplay['scores']) && $contentToDisplay['scores']) { ?>
             <td><?=modTvoAktuelleErgebnisseHelper::score($game->gHomeGoals, $game->gGuestGoals, $game->gHomeGoals_1, $game->gGuestGoals_1);?></td>
           <?php }
 
-          if($contentToDisplay['guestteam']) { ?>
+          if(isset($contentToDisplay['guestteam']) && $contentToDisplay['guestteam']) { ?>
             <td><?=$game->gGuestTeam;?></td>
           <?php }
 
