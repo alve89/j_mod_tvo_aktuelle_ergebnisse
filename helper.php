@@ -70,6 +70,9 @@ class ModTvoAktuelleErgebnisseHelper {
 
 	public static function getTimestamp($game)
 	{
+		if($game->gTime == "") {
+			$game->gTime = '00:00';
+		}
 
 		$dateAsArr = explode(".", $game->gDate);
 		$dateAsArr[2] = 2000 + $dateAsArr[2];

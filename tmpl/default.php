@@ -52,9 +52,13 @@ require_once(JPATH_SITE . '/modules' . DS . $module->module . DS . 'helper.php')
 
     foreach($allGames as $game) {
       ?><tr><?php
-          if(isset($contentToDisplay['datetime']) && $contentToDisplay['datetime']) { ?>
+          if(isset($contentToDisplay['datetime']) && $contentToDisplay['datetime']) {
+            if($game->gTime == "00:00") { ?>
+              <td><?=date("d.m.Y, ", $game->gDateTS);?>Zeit n. v.</td>
+            <?php }
+            else { ?>
             <td><?=date("d.m.Y, H:i", $game->gDateTS);?></td>
-          <?php }
+          <?php }}
 
           if(isset($contentToDisplay['league']) && $contentToDisplay['league']) { ?>
             <td><?=$game->gClassSname;?></td>
