@@ -4,10 +4,51 @@ defined('_JEXEC') or die;
 
 require_once(JPATH_SITE . '/modules' . DS . $module->module . DS . 'helper.php');
 
+$renderTable = false;
 
-  ?><jdoc:include type="message" /><?php
+?><jdoc:include type="message" /><?php
 
-  echo $params->get('header');
+echo $params->get('header');
+
+
+// Prüfe, ob die Saison noch läuft oder bereits vorüber ist
+if( $params->get('seasonStatusSelector') == 1 ) {
+  // Prüfe ob in der Modulkonfiguration Spalten zum Anzeigen ausgewählt wurden
+  if( $params->get('columns') == NULL ) {
+    // In der Modulkonfiguration wurde nichts angehakt
+    $application->enqueueMessage(JText::_('MOD_TVO_AKTUELLE_ERGEBNISSE_NO_COLUMNS_CHOSEN'), 'error');
+  }
+
+  // // Prüfe, ob Spiele im Gesamt-Array vorhanden sind
+  // if( empty($allGames) ) {
+  //   // Es wurden keine Spiele gefunden
+  //   $application->enqueueMessage(JText::_('MOD_TVO_AKTUELLE_ERGEBNISSE_NO_GAMES_FOUND'), 'error');
+  // }
+
+  if( $tablesNotFound ) {
+    $application->enqueueMessage(JText::_('MOD_TVO_AKTUELLE_ERGEBNISSE_TABLES_NOT_FOUND'), 'error');
+  }
+
+  // Erstelle Array mit allen anzuzeigenden Spalten
+  $contentToDisplay = $params->get('columns');
+
+  foreach($contentToDisplay as $key => $value)
+	{
+		$contentToDisplay[$value] = true;
+		unset($contentToDisplay[$key]);
+	}
+
+	// Render output
+	$renderTable = true;
+}
+else {
+	echo 'Die Saison ist vorbei';
+}
+
+
+
+
+if($renderTable) {
 
   if( isset($contentToDisplay['leagueAsHeader']) && $contentToDisplay['leagueAsHeader'] ) {
   ?>
@@ -97,3 +138,4 @@ require_once(JPATH_SITE . '/modules' . DS . $module->module . DS . 'helper.php')
     <?php
     echo '<span style="font-size: 10px; line-height: 6px">'.$params->get('disclaimer').'</span>';
   }
+} // if $renderTable is true

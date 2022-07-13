@@ -135,36 +135,5 @@ if( !$tablesNotFound ) {
 
 // ####################################### Prüfe alle Voraussetzungen und starte Rendering #######################################
 
-// Prüfe, ob die Saison noch läuft oder bereits vorüber ist
-if( $params->get('seasonStatusSelector') == 1 ) {
-  // Prüfe ob in der Modulkonfiguration Spalten zum Anzeigen ausgewählt wurden
-  if( $params->get('columns') == NULL ) {
-    // In der Modulkonfiguration wurde nichts angehakt
-    $application->enqueueMessage(JText::_('MOD_TVO_AKTUELLE_ERGEBNISSE_NO_COLUMNS_CHOSEN'), 'error');
-  }
-
-  // // Prüfe, ob Spiele im Gesamt-Array vorhanden sind
-  // if( empty($allGames) ) {
-  //   // Es wurden keine Spiele gefunden
-  //   $application->enqueueMessage(JText::_('MOD_TVO_AKTUELLE_ERGEBNISSE_NO_GAMES_FOUND'), 'error');
-  // }
-
-  if( $tablesNotFound ) {
-    $application->enqueueMessage(JText::_('MOD_TVO_AKTUELLE_ERGEBNISSE_TABLES_NOT_FOUND'), 'error');
-  }
-
-  // Erstelle Array mit allen anzuzeigenden Spalten
-  $contentToDisplay = $params->get('columns');
-
-  foreach($contentToDisplay as $key => $value)
-	{
-		$contentToDisplay[$value] = true;
-		unset($contentToDisplay[$key]);
-	}
-
-	// Render output
-	require JModuleHelper::getLayoutPath('mod_tvo_aktuelle_ergebnisse', $params->get('layout'));
-}
-else {
-	echo 'Die Saison ist vorbei';
-}
+// Render output
+require JModuleHelper::getLayoutPath('mod_tvo_aktuelle_ergebnisse', $params->get('layout'));
